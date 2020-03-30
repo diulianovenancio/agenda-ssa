@@ -4,25 +4,25 @@ include ("../../../inc/config.php");
 global $DB;
 
 Session::checkLoginUser();
-//$userID = $_SESSION['glpiID'];
 
 session_start();
-
 include_once("conexao.php");
-//$result_events = "SELECT * FROM agenda_fullcalendar where departamento = 'cpd'";
-$result_events = "SELECT a.*, u.id AS id_user, u.firstname AS nome_usuario, u.realname AS sobrenome_usuario FROM agenda_fullcalendar a
+
+
+$result_events = "
+SELECT a.*, u.id AS id_user, u.firstname AS nome_usuario, u.realname AS sobrenome_usuario 
+FROM agenda_fullcalendar a
 INNER JOIN glpi_users u ON a.criado_por=u.id
-where a.departamento = 'cpd'";
+where a.departamento = 'cpd'
+";
 $resultado_events = mysqli_query($conn, $result_events);
 
-//profiles_id = Perfil do Usuario
+//profiles_id = Perfil do Usuario (Super Administrador)
 //is_active = Usuario Ativo (1) e (0) Desativado
 //Verifica perfil do usuario
 $perfil_query = "SELECT * from glpi_users where id = ".$_SESSION['glpiID'];
 $perfil_result = mysqli_query($conn, $perfil_query);
-//echo $perfil_query; //testando query
 $perfilt_row = mysqli_fetch_assoc($perfil_result);
-//echo "<br>".$perfilt_row['is_active']."<br>".$perfilt_row['profiles_id']; //testando informações
 if ($perfilt_row['is_active'] == 1 and $perfilt_row['profiles_id'] == 4){}else{$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>Você não possui permissão para acessar o painel de gestão da agenda!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";header('Location: http://ssa.autus.com.br/agenda/ti/');}
 
 ?>
