@@ -22,8 +22,9 @@ $perfil_query = "SELECT * from glpi_users where id = ".$_SESSION['glpiID'];
 $perfil_result = mysqli_query($conn, $perfil_query);
 //echo $perfil_query; //testando query
 $perfilt_row = mysqli_fetch_assoc($perfil_result);
-//echo "<br>".$perfilt_row['is_active']."<br>".$perfilt_row['profiles_id']; //testando informações
-if ($perfilt_row['is_active'] == 1 and $perfilt_row['profiles_id'] == 4){}else{$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>Você não possui permissão para acessar o painel de gestão da agenda!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";header('Location: http://ssa.autus.com.br/agenda/ti/');}
+//echo "<br>".$perfilt_row['is_active']."<br>".$perfilt_row['profiles_id']."<br>".$perfilt_row['id']; //testando informações
+//exit();
+if ( ($perfilt_row['is_active'] == 1 and $perfilt_row['profiles_id'] == 4) OR ($perfilt_row['id'] == 238) ){}else{$_SESSION['msg'] = "<div class='alert alert-success' role='alert'>Você não possui permissão para acessar o painel de gestão da agenda!<button type='button' class='close' data-dismiss='alert' aria-label='Close'><span aria-hidden='true'>&times;</span></button></div>";header('Location: https://ssa.autus.com.br/agenda/ti/');}
 
 ?>
 <!DOCTYPE html>
